@@ -1,4 +1,6 @@
 # blog
+
+ exercice
 CAHIER DES CHARGES
 ------------------
 objectif
@@ -124,5 +126,51 @@ FROM commentaire
 JOIN article ON article.id_article=commentaire.id_article
 ORDER BY date_commentaire ASC;
 
+
+corriger exercice
+
+
+
+CREATE TABLE auteur(
+id_auteur integer auto_increment primary key,nom_auteur varchar (100),email_auteur  varchar (100));
+
+CREATE TABLE abonnement (
+id_abonn integer auto_increment primary key,nom_abon  varchar (100),prenom_abon  varchar (100),email_abonn  varchar (100));
+
+CREATE TABLE media (
+id_media integer auto_increment primary key,image blob,video varchar(255) ,url varchar(255);
+
+CREATE TABLE categories(
+id_categories integer auto_increment primary key,nom_categories varchar (100));
+
+CREATE TABLE comment(
+id_comment integer auto_increment primary key,description Text,date_comment Datetime,
+id_article integer foreign key,foreign key(id_article) references article(id_article),
+id_abonn integer foreign key,foreign key(id_abonn) references abonnement(id_abonn) ;
+
+CREATE TABLE article (
+id_article integer auto_increment primary key,title varchar (100),content Text,date_article Datetime,
+id_media integer foreign key,foreign key(id_media) references media(id_media)
+id_categories integer foreign key,foreign key(id_categories) references categories(id_categories)
+id_auteur integer foreign key,foreign key(id_auteur) references auteur(id_auteur));
+
+CREATE TABLE widget(
+id_widget integer auto_increment primary key,nom_widget varchar(100),contenus text ,media )
+
+
+-afficher les categories
+SELECT * FROM categories;
+
+-afficher les commentaires
+SELECT description,date_comment,title
+FROM comment 
+JOIN article ON article.id_article=comment.id_article
+ORDER BY date_comment DESC;
+
+-afficher l'article
+SELECT title,content,image,video,url
+FROM article
+JOIN article ON article.id_media=media.id_media
+ORDER BY date_article DESC;
 
 
